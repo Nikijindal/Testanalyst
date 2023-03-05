@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using PracticeCode1.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +17,16 @@ namespace PracticeCode1.Pages
 
             IWebElement createNewbutton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
             createNewbutton.Click();
+            Thread.Sleep(1000);
 
             // Select time option from Typecode dropdown list 
 
-            IWebElement typecodedropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[1]"));
-            typecodedropdown.Click();
+            IWebElement typecodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
+            typecodeDropdown.Click();
             Thread.Sleep(1000);
 
-            IWebElement timeselectdropdown = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
-            timeselectdropdown.Click();
+            IWebElement timeOption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
+            timeOption.Click();
 
 
             // Pass value in code field 
@@ -33,54 +36,79 @@ namespace PracticeCode1.Pages
 
             // Pass value in description
             IWebElement descriptionbox = driver.FindElement(By.Id("Description"));
-            descriptionbox.SendKeys("TestOnly");
+            descriptionbox.SendKeys("T20");
 
             // Pass value in Price field 
             IWebElement priceunit = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
             priceunit.SendKeys("6000");
-            Thread.Sleep(1000);
+            
 
             // Click on save button
             IWebElement savebtn = driver.FindElement(By.Id("SaveButton"));
             savebtn.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
+            
 
             // Click on lastpage
-            IWebElement lastpage = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]"));
+            IWebElement lastpage = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             lastpage.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
-            IWebElement record = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]")); ////*[@id="tmsGrid"]/div[3]/table/tbody/tr[2]/td[5]/a[1]
+            IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]")); 
+            
 
-            if (record.Text == "Test2023")
-            {
-                Console.WriteLine("New record added successfully");
-            }
-            else
-            {
-                Console.WriteLine("record not added");
-            }
+            Assert.That(newcode.Text == "Test2023", "Actual & expected code does not match");
+           
+            
+            //if (record.Text == "Test2023")
+            //{
+            //    //Console.WriteLine("New record added successfully");
+            //    Assert.Pass("New record added successfully");
+            //}
+            //else
+            //{
+            //    Assert.Fail("record not added");
+            //}
 
             
 
         }
         public void EditTM(IWebDriver driver)
         {
-            // Click on edit button to edit record
 
-            IWebElement editbtn = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]")); ////*[@id="tmsGrid"]/div[3]/table/tbody/tr[2]/td[5]/a[1]
-            editbtn.Click();
+            // Click on edit button to edit record
+           // Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
+            Thread.Sleep(5000);
+            IWebElement lastpage1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            lastpage1.Click();
+            Thread.Sleep(5000);
+
+            IWebElement recordtoBeEdited = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+            if(recordtoBeEdited.Text == "Test2023")
+            {
+                IWebElement lastRecordEdit = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+                lastRecordEdit.Click();
+            }
+            else
+            {
+                Assert.Fail("Record to be edited not found");
+            }
+
+
+            //IWebElement editbtn = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]")); ////*[@id="tmsGrid"]/div[3]/table/tbody/tr[2]/td[5]/a[1]
+            //editbtn.Click();
 
             // Clear code field
             IWebElement codeedit = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
             codeedit.Clear();
 
             // Enter new record in Code field
-            IWebElement codebtn = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
-            codebtn.SendKeys("Gets2023");
+            IWebElement codeTextBox = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
+            codeTextBox.SendKeys("Get2023");
 
             //Click on save button after editing record
-            IWebElement editsavebtn = driver.FindElement(By.XPath("//*[@id=\"SaveButton\"]"));
+            IWebElement editsavebtn = driver.FindElement(By.Id("SaveButton"));
             editsavebtn.Click();
             Thread.Sleep(3000);
 
@@ -92,53 +120,52 @@ namespace PracticeCode1.Pages
             editlastpage.Click();
             Thread.Sleep(2000);
 
-            IWebElement Editedrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement editedrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            if (Editedrecord.Text == "Gets2023")
-            {
-                Console.WriteLine("Record is edited successfully");
-            }
-            else
-            {
-                Console.WriteLine("Record not Editted");
-            }
+            Assert.That(editedrecord.Text == "Get2023", "Record is not editted");
+            //if (Editedrecord.Text == "Get2023")
+            //{
+            //    Console.WriteLine("Record is edited successfully");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Record not Editted");
+            //}
              
         }
-
+        
         public void DeleteTM(IWebDriver driver)
         {
-            // Go to last page again for deletion
-            IWebElement DLlastpage = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")); ////*[@id="tmsGrid"]/div[4]/a[4]/span
-            DLlastpage.Click();
+            // Go to last Page
+            Thread.Sleep(2000);
+            IWebElement GotolastPage = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            GotolastPage.Click();
             Thread.Sleep(5000);
 
-            //Click on Delete button 
-            IWebElement deletebtn = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
-            deletebtn.Click();
-            Thread.Sleep(2000);
+            IWebElement recordtobeDeleted = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            // Click on OK button on popup box
-           IAlert al = driver.SwitchTo().Alert();
-            al.Accept();
-            Thread.Sleep(2000);
-
-
-            IWebElement deletedrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-
-            if(deletedrecord.Text == "Gets2023")
+            if (recordtobeDeleted.Text == "Get2023") 
             {
-                Console.WriteLine("Record is not deleted");
+                IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+                deleteButton.Click();
+                Thread.Sleep(3000); 
             }
             else
             {
-                Console.WriteLine("Record deleted successfully");
+                Assert.Fail("Record to be deleted not found");
             }
 
-            driver.Quit();
-            
-            
-            
-            
+            IAlert al = driver.SwitchTo().Alert();
+            al.Accept();
+            Thread.Sleep(2000);
+            IWebElement deletedRecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            Thread.Sleep(2000);
+
+            Assert.That(deletedRecord.Text != "Get2023", "Record hasn't been deleted");
+
         }
+
+        
+
     }
 }

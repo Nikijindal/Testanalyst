@@ -1,42 +1,56 @@
-﻿// Invoke browser
-
-using OpenQA.Selenium;
+﻿using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using PracticeCode1.Pages;
-using System.Threading;
+using PracticeCode1.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-IWebDriver driver = new ChromeDriver();
-
-LoginPage LoginPageObj = new LoginPage();
-LoginPageObj.LoginActions(driver);
-
-HomePage HomePageObj = new HomePage();
-HomePageObj.GoToTMPage(driver);
-
-TMPage TMPageObj= new TMPage();
-TMPageObj.CreateTM(driver);
-TMPageObj.EditTM(driver);
-TMPageObj.DeleteTM(driver);
-
-
-/* Check if user has successfully logged in 
-IWebElement helloHari = driver.FindElement(By.XPath("//*[@id=\"logoutForm\"]/ul/li/a"));
-
-if (helloHari.Text == "Hello hari!")
+namespace PracticeCode1.Tests
 {
-    Console.WriteLine("User has logged in successfully");
+    [TestFixture]
+    public class TM_Tests : CommonDriver
+    {
+        [SetUp]
+        public void LoginSteps()
+        {
+            driver = new ChromeDriver();
+            LoginPage LoginPageObj = new LoginPage();
+            LoginPageObj.LoginActions(driver);
+
+            HomePage HomePageObj = new HomePage();
+            HomePageObj.GoToTMPage(driver);
+
+        }
+
+        [Test,Order(1),Description("Check if user is able to create new record")]
+        public void CreateTMTests()
+        {
+            TMPage TMPageObj = new TMPage();
+            TMPageObj.CreateTM(driver);
+
+        }
+        [Test,Order(2), Description("Check if user is able to Edit already created record")]
+        public void EditTMTests()
+        {
+            TMPage TMPageObj = new TMPage();
+            TMPageObj.EditTM(driver);
+        }
+
+        [Test,Order(3), Description("Check if user is able to delete the edited record")]
+        public void DeleteTMTests()
+        {
+            TMPage TMPageObj = new TMPage();
+            TMPageObj.DeleteTM(driver);
+        }
+
+        [TearDown]
+        public void CloseTestRun()
+        {
+            driver.Quit();
+        }
+
+    }
 }
-else
-{
-    Console.WriteLine("login unsuccessful");
-}
-*/
-//create new time record 
-
-
-// Click on create new button
-
-
-
-
-
