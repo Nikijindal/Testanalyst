@@ -74,7 +74,7 @@ namespace PracticeCode1.Pages
 
             IWebElement lastPage2 = driver.FindElement(By.XPath("//*[@id=\"usersGrid\"]/div[4]/a[4]/span"));
             lastPage2.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             // Check the name record to confirm if it was entered successfully
             IWebElement lastaddedrecord = driver.FindElement(By.XPath("//*[@id=\"usersGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));

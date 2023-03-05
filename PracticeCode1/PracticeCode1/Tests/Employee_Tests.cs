@@ -10,46 +10,37 @@ using System.Threading.Tasks;
 
 namespace PracticeCode1.Tests
 {
+    [TestFixture]
+    [Parallelizable]
     public class Employee_Tests:CommonDriver 
     {
-        [SetUp]
-        public void LoginSteps()
-        {
-            driver = new ChromeDriver();
-            LoginPage loginPageObj = new LoginPage();
-            loginPageObj.LoginActions(driver);
-
-            HomePage homePageObj= new HomePage();
-            homePageObj.GoToEmployeePage(driver);
-        }
+        EmployeePage employeePageObj = new EmployeePage();      
+        HomePage homePageObj= new HomePage();
+       
+        
 
         [Test,Order(1)]
         public void CreateEmployee()
         {
-            EmployeePage employeePageObj = new EmployeePage();
+            homePageObj.GoToEmployeePage(driver);
             employeePageObj.CreateEmployee(driver);
         }
 
         [Test, Order(2)]
          public void EditEmployee()
-          {
-              EmployeePage employeePageObj = new EmployeePage();
-              employeePageObj.EditEmployee(driver);   
+         {
+             homePageObj.GoToEmployeePage(driver);
+             employeePageObj.EditEmployee(driver);   
 
-          }
+         }
 
      [Test,Order(3)]
      public void DeleteEmployee() 
      {
-         EmployeePage employeePageObj = new EmployeePage();
-         employeePageObj.DeleteEmployee(driver);
+            homePageObj.GoToEmployeePage(driver);
+            employeePageObj.DeleteEmployee(driver);
      }
 
-    [TearDown]
-        public void Cleanup() 
-        {
-        
-            driver.Quit();
-        }
+    
     }
 }

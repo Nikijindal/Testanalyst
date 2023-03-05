@@ -46,7 +46,7 @@ namespace PracticeCode1.Pages
             // Click on save button
             IWebElement savebtn = driver.FindElement(By.Id("SaveButton"));
             savebtn.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             
 
             // Click on lastpage
@@ -54,8 +54,8 @@ namespace PracticeCode1.Pages
             lastpage.Click();
             Thread.Sleep(5000);
 
-            IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]")); 
-            
+            IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            Thread.Sleep(1000);
 
             Assert.That(newcode.Text == "Test2023", "Actual & expected code does not match");
            
@@ -76,16 +76,16 @@ namespace PracticeCode1.Pages
         public void EditTM(IWebDriver driver)
         {
 
-            // Click on edit button to edit record
+           //Go to last page 
            // Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
             Thread.Sleep(5000);
-            IWebElement lastpage1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
-            lastpage1.Click();
-            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")).Click();
+            
+            Thread.Sleep(8000);
 
             IWebElement recordtoBeEdited = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-
-            if(recordtoBeEdited.Text == "Test2023")
+            // // Click on edit button to edit record
+            if (recordtoBeEdited.Text == "Test2023")
             {
                 IWebElement lastRecordEdit = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
                 lastRecordEdit.Click();
@@ -110,7 +110,7 @@ namespace PracticeCode1.Pages
             //Click on save button after editing record
             IWebElement editsavebtn = driver.FindElement(By.Id("SaveButton"));
             editsavebtn.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
 
 
 
@@ -118,7 +118,7 @@ namespace PracticeCode1.Pages
 
             IWebElement editlastpage = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")); ////*[@id="tmsGrid"]/div[4]/a[4]/span
             editlastpage.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(8000);
 
             IWebElement editedrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
@@ -137,10 +137,10 @@ namespace PracticeCode1.Pages
         public void DeleteTM(IWebDriver driver)
         {
             // Go to last Page
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             IWebElement GotolastPage = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             GotolastPage.Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
 
             IWebElement recordtobeDeleted = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
@@ -148,7 +148,7 @@ namespace PracticeCode1.Pages
             {
                 IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
                 deleteButton.Click();
-                Thread.Sleep(3000); 
+                Thread.Sleep(5000); 
             }
             else
             {
@@ -157,9 +157,9 @@ namespace PracticeCode1.Pages
 
             IAlert al = driver.SwitchTo().Alert();
             al.Accept();
-            Thread.Sleep(2000);
+            Thread.Sleep(8000);
             IWebElement deletedRecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             Assert.That(deletedRecord.Text != "Get2023", "Record hasn't been deleted");
 
