@@ -77,11 +77,11 @@ namespace PracticeCode1.Pages
         {
 
            //Go to last page 
-           // Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
-            Thread.Sleep(5000);
+           Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
+           
             driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span")).Click();
             
-            Thread.Sleep(8000);
+            // Thread.Sleep(8000);
 
             IWebElement recordtoBeEdited = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             // // Click on edit button to edit record
@@ -110,8 +110,7 @@ namespace PracticeCode1.Pages
             //Click on save button after editing record
             IWebElement editsavebtn = driver.FindElement(By.Id("SaveButton"));
             editsavebtn.Click();
-            Thread.Sleep(5000);
-
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
 
 
             // Go to last page after editing record
@@ -121,6 +120,7 @@ namespace PracticeCode1.Pages
             Thread.Sleep(8000);
 
             IWebElement editedrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            Thread.Sleep(3000);
 
             Assert.That(editedrecord.Text == "Get2023", "Record is not editted");
             //if (Editedrecord.Text == "Get2023")

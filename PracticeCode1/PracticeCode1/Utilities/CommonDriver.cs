@@ -12,7 +12,7 @@ namespace PracticeCode1.Utilities
 {
     public class CommonDriver
     {
-        public static IWebDriver driver;
+        public IWebDriver driver;
 
         [SetUp]
         public void LoginSteps()
@@ -21,8 +21,8 @@ namespace PracticeCode1.Utilities
             LoginPage LoginPageObj = new LoginPage();
             LoginPageObj.LoginActions(driver);
 
-            HomePage HomePageObj = new HomePage();
-            HomePageObj.GoToTMPage(driver);
+           // HomePage HomePageObj = new HomePage();
+          //  HomePageObj.GoToTMPage(driver);
 
         }
 
