@@ -29,7 +29,7 @@ namespace PracticeCode1.Tests
         public void EditTMTests()
         {
             HomePageObj.GoToTMPage(driver);
-            TMPageObj.EditTM(driver);
+            //TMPageObj.EditTM(driver);
         }
 
         [Test,Order(3), Description("Check if user is able to delete the edited record")]
