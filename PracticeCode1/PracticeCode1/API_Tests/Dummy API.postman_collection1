@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "24da6732-1fb4-4d70-830b-60c0cc20c998",
+		"name": "Dummy API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26343405"
+	},
+	"item": [
+		{
+			"name": "Get data for all employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get data for single employee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employee/3221",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"3221"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
